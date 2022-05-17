@@ -1,11 +1,21 @@
 <script>
 import SelectLine from './components/Line/SelectLine.vue';
+import { mainStore } from './store/index';
+import { storeToRefs } from 'pinia';
 
 export default {
   name: "App",
+  setup() {
+    const store = mainStore();
+    const { show_line_select } = storeToRefs(store);
+
+    return {
+      show_line_select
+    }
+  },
   data(){
     return {
-      lineSelected: false,
+      
     }
   },
   components: {
@@ -16,7 +26,7 @@ export default {
       try {
         const line = await this.$localforage.getItem('line');
         if(process.env.NODE_ENV === "development") console.log(`Line is ${line}`);
-        if(!line) this.lineSelected = false; else this.lineSelected = true;
+        if(!line) this.show_line_select = true; else this.show_line_select = false;
       } catch (exception) {
         if(process.env.NODE_ENV === "development") throw new Error(exception);
       }
@@ -33,7 +43,7 @@ export default {
 </script>
 <template>
   <router-view/>
-  <select-line v-if="!lineSelected"></select-line>
+  <select-line v-if="show_line_select"></select-line>
 </template>
 
 <style>
