@@ -35,6 +35,9 @@ export default {
   created(){
     try {
       this.checkForLine();
+      if(process.env.NODE_ENV === "development") {
+        document.body.classList.add('debug-screens');
+      }
     } catch(exception) {
       console.error(exception);
     }

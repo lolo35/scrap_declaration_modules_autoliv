@@ -24,10 +24,12 @@ export default {
     props: {
         part: Object,
     },
+    emits: ['part_selected'],
     methods: {
         async setSelectedPart(){
-            this.selected_part = this.part.part;
-            await this.$localforage.setItem('selected_part', this.part.part);
+            this.selected_part = this.part;
+            await this.$localforage.setItem('selected_part', JSON.stringify(this.part));
+            this.$emit('part_selected');
         }
     }
 }

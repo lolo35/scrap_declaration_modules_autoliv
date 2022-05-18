@@ -27,9 +27,9 @@
                             <h3 class="text-xl font-bold text-gray-700">Linii</h3>
                             <p class="font-bold text-sm text-gray-500 italic">Alege linia</p>
                         </div>
-                        <div class="flex flex-row space-x-3" v-if="selected_line.length > 0">
+                        <div class="flex flex-row space-x-3" >
                             <h3 class="text-lg font-semibold">Linia aleasa: </h3>
-                            <h3 class="text-lg font-bold italic text-gray-500">{{ selected_line }}</h3>
+                            <h3 class="text-lg font-bold italic text-gray-500">{{ selected_line.linecode }}</h3>
                         </div>
                     </div>
                     <div class="flex flex-row px-3 py-1.5 flex-wrap w-full items-center" v-if="lines_loaded">
@@ -95,7 +95,7 @@ export default {
     methods: {
         async saveWorkZone() {
             try {
-                await this.$localforage.setItem('line', {zone: this.selected_departament, line: this.selected_line});
+                await this.$localforage.setItem('line', {zone: this.selected_departament, line: JSON.stringify(this.selected_line)});
                 this.show_line_select = false;
             } catch (exception) {
                 throw new Error(exception);

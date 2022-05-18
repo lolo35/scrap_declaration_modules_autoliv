@@ -8,6 +8,7 @@ localforage.config({
 import './assets/css/main.css';
 import { createPinia } from 'pinia';
 import axios from 'axios';
+import './assets/fontawesome-free-6.1.1-web (1)/fontawesome-free-6.1.1-web/css/all.css';
 
 let url = "";
 

@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row w-full justify-center">
-        <h3 class="text-4xl font-bold text-center">{{ selected_line }} - {{ selected_departament }}</h3>
+        <h3 class="text-4xl font-bold text-center">{{ selected_line.linecode }} - {{ selected_departament }}</h3>
     </div>
 </template>
 
@@ -25,7 +25,8 @@ export default {
         async fetchLineData(){
             try {
                 const data = await this.$localforage.getItem('line');
-                this.selected_line = data.line;
+                const linedata = JSON.parse(data.line);
+                this.selected_line = linedata;
                 this.selected_departament = data.zone;
             } catch (exception) {
                 throw new Error(exception);
