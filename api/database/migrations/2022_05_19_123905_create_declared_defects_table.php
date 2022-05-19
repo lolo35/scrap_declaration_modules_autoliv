@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('b_o_m_s', function (Blueprint $table) {
+        Schema::create('declared_defects', function (Blueprint $table) {
             $table->id();
-            $table->integer('finit_id');
+            $table->integer('defect_id');
+            $table->string('finit');
             $table->string('part_number');
-            $table->string('description');
-            $table->boolean('islabel');
-            $table->integer('line_id');
-            $table->string('label_formula')->nullable();
+            $table->string('line');
+            $table->string('defect_code');
+            $table->string('identified_station');
+            $table->string('produced_station');
+            $table->integer('quantity');
+            $table->string('label')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('b_o_m_s');
+        Schema::dropIfExists('declared_defects');
     }
 };

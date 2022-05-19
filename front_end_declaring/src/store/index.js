@@ -14,6 +14,7 @@ export const mainStore = defineStore('main', {
             defectCode: {},
             defect_codes: {},
             declare_step: 1,
+            declared_successfully: false,
         }
     }
 });

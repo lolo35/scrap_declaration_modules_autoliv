@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartamentsController;
 use App\Http\Controllers\PartsController;
 use App\Http\Controllers\StationsController;
 use App\Http\Controllers\DefectCodesController;
+use App\Http\Controllers\ScrapDeclareController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +24,8 @@ Route::get('/departaments', [DepartamentsController::class, 'getDepartaments']);
 Route::get('/parts', [PartsController::class, 'getParts']);
 Route::get('/stations', [StationsController::class, 'getStations']);
 Route::get('/defect_codes', [DefectCodesController::class, 'getDefectCodes']);
+Route::get('/check_for_scan', [ScrapDeclareController::class, 'checkForScan']);
+Route::post('/declare_scrap', [ScrapDeclareController::class, 'declareScrap']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();

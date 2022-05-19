@@ -1,6 +1,8 @@
 <template>
     <div class="flex flex-row w-full justify-center">
-        <h3 class="text-4xl font-bold text-center">{{ selected_line.linecode }} - {{ selected_departament }}</h3>
+        <div class="flex flex-row bg-white shadow border px-4 py-5 mt-2 rounded-sm">
+            <h3 class="text-4xl font-bold text-center">{{ selected_line.linecode }} - {{ selected_departament }}</h3>
+        </div>
     </div>
 </template>
 

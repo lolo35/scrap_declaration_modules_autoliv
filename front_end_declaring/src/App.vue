@@ -50,5 +50,10 @@ export default {
 </template>
 
 <style>
-
+body {
+  background-image: url('./assets/images/undraw_throw_away_re_x60k.svg');
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  min-height: 100vh;
+}
 </style>

@@ -3,7 +3,9 @@
         <part-select-button v-for="part in parts" :key="part.id" :part="part" v-on:part_selected="partSelected = !partSelected"></part-select-button>
     </div>
     <div class="flex flex-row justify-center" v-if="partSelected">
-        <h3 class="text-xl font-bold">{{ selected_part.part }} - {{ selected_part.description }}</h3>
+        <div class="flex flex-row bg-white shadow px-4 py-5 rounded-sm">
+            <h3 class="text-xl font-bold">{{ selected_part.part }} - {{ selected_part.description }}</h3>
+        </div>
     </div>
     <div class="flex flex-row px-3 py-1.5" v-if="partSelected">
         <button class="bg-sky-500 px-3 py-1.5 hover:bg-sky-700 text-white rounded-sm" @click="showParts()">

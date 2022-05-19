@@ -9,6 +9,6 @@ class BOM extends Model
 {
     use HasFactory;
     protected $table = "b_o_m_s";
-    protected $fillable = ['finit_id', 'part_number', 'description', 'islabel'];
+    protected $fillable = ['finit_id', 'part_number', 'description', 'islabel', 'line_id', 'label_formula'];
     protected $hidden = [];
 }
