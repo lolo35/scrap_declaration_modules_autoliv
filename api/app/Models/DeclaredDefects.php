@@ -11,4 +11,8 @@ class DeclaredDefects extends Model
     protected $table = "declared_defects";
     protected $fillable = ['defect_id', 'finit', 'part_number', 'line', 'defect_code', 'identified_station', 'produced_station', 'quantity'];
     protected $hidden = [];
+
+    public static function last() {
+        return self::latest()->first();
+    }
 }

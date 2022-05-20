@@ -8,6 +8,7 @@ use App\Http\Controllers\PartsController;
 use App\Http\Controllers\StationsController;
 use App\Http\Controllers\DefectCodesController;
 use App\Http\Controllers\ScrapDeclareController;
+use App\Http\Controllers\DisassemblyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +27,12 @@ Route::get('/stations', [StationsController::class, 'getStations']);
 Route::get('/defect_codes', [DefectCodesController::class, 'getDefectCodes']);
 Route::get('/check_for_scan', [ScrapDeclareController::class, 'checkForScan']);
 Route::post('/declare_scrap', [ScrapDeclareController::class, 'declareScrap']);
+
+Route::prefix('disassembly')->group(function () {
+    Route::get('/defect', [DisassemblyController::class, 'getDefect']);
+    Route::post('/save_status', [DisassemblyController::class, 'saveStatus']);
+    Route::get('/times_scanned', [DisassemblyController::class, 'countTimesScanned']);
+});
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
