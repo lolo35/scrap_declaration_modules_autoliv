@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\StationBomAssoc;
 use App\Models\BOM;
 use App\Models\DeclaredDefects;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class ScrapDeclareController extends Controller
@@ -121,6 +122,42 @@ class ScrapDeclareController extends Controller
                 return ['success' => true, 'component' => $component];
             }
             return ['success' => false, 'error' => 'no data'];
+        } catch (Exception $e) {
+            return ['success' => false, 'error' => $e->getMessage(), 'line' => $e->getLine(), 'file' => $e->getFile()];
+        }
+    }
+
+    public function getScrapData(Request $request) {
+        try {
+            $fields = $this->validate($request, [
+                'date' => "required|string",
+                'departament' => "required|string",
+                'shift' => "required|integer"
+            ]);
+            $shift = $this->determineShift($fields['shift']);
+            if($shift['success']) {
+                $start = $fields['date'] . " " . $shift['start'];
+                $end = $fields['date'] . " " . $shift['end'];
+                $data = DB::table("scrap_components")
+                    ->join('declared_defects', 'scrap_components.declared_defect_id', '=', 'declared_defects.id')
+                    ->whereBetween('declared_defects.created_at', [$start, $end])
+                    ->selectRaw('declared_defects.part_number, sum(declared_defects.quantity) as total')
+                    ->groupBy('declared_defects.part_number')
+                    ->get();
+                return response()->json(['success' => true, 'data' => $data, 'shift' => $shift], 200);
+            }
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage(), 'line' => $e->getLine(), 'file' => $e->getFile()], 200);
+        }
+    }
+
+    private function determineShift($shift) {
+        try {
+            switch($shift) {
+                case 1 : return ['success' => true, 'start' => "06:00", 'end' => "14:30"];
+                case 2 : return ['success' => true, 'start' => "14:30", 'end' => "23:00"];
+                case 3 : return ['success' => true, 'start' => "23:00", 'end' => "06:00"];
+            }
         } catch (Exception $e) {
             return ['success' => false, 'error' => $e->getMessage(), 'line' => $e->getLine(), 'file' => $e->getFile()];
         }

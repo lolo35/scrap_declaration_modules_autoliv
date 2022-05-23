@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ScrapComponents;
 use App\Models\OkComponents;
 use Exception;
-use PhpParser\Node\Stmt\Declare_;
 
 class DisassemblyController extends Controller
 {
@@ -85,15 +84,19 @@ class DisassemblyController extends Controller
             $scrap = json_decode($fields['scrap'], true);
             
             foreach($scrap as $component) {
-                $insert = new ScrapComponents();
-                $insert->declared_defect_id = $component['id'];
-                $insert->save();
+                ScrapComponents::updateOrCreate(
+                    [
+                        'declared_defect_id' => $component['id']
+                    ]
+                );
             }
 
             foreach($ok as $component) {
-                $insert = new OkComponents();
-                $insert->declared_defect_id = $component['id'];
-                $insert->save();
+                OkComponents::updateOrCreate(
+                    [
+                        'declared_defect_id' => $component['id']
+                    ]
+                );
             }
 
             return response()->json(['success' => true], 200);

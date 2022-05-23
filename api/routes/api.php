@@ -34,6 +34,10 @@ Route::prefix('disassembly')->group(function () {
     Route::get('/times_scanned', [DisassemblyController::class, 'countTimesScanned']);
 });
 
+Route::prefix('admin')->group(function() {
+    Route::get('scrap_data', [ScrapDeclareController::class, 'getScrapData']);
+});
+
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
